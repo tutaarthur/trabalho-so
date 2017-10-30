@@ -48,7 +48,17 @@ int main(int argc, char **argv)
     if(!strcmp(argv[1], "min"))
         priority = 20;
     
-    system("renice %i -p %i", priority, pid);
+    char priority_string[10], pid_string[10], command[100];
+    
+    snprintf(priority_string, 10, "%i", priority);
+    snprintf(pid_string, 10, "%i", (int)(pid));
+    
+    strcpy(command,"renice ");
+    strcat(command, priority_string);
+    strcat(command, " -p ");
+    strcat(command, pid_string);
+    
+    system(command);
     
     return 0;
 }
